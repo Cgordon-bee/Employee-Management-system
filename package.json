@@ -1,0 +1,25 @@
+{
+  "name": "employee-management-system",
+  "version": "1.0.0",
+  "description": "Creation of a Content Management System for Employees",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cgordon-bee/Employee-Management-system.git"
+  },
+  "author": "Carol Gordon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cgordon-bee/Employee-Management-system/issues"
+  },
+  "homepage": "https://github.com/Cgordon-bee/Employee-Management-system#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.1.2",
+    "mysql2": "^2.3.0"
+  }
+}
