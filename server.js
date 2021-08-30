@@ -1,49 +1,42 @@
 const express = require('express');
-const path = require('path');
-const fs = require("fs");
-const util = require("util");
-const inquirer =require("inquirer");
-const msql =require("msql");
-const Choices = require('inquirer/lib/objects/choices');
-
-//inquirer imported for questions 
+const inquirer =require('inquirer');
+const mysql =require('mysql2');
 
 
-inquirer
-  .prompt([
+//Setting up connectivity with server
+const PORT = process.env.PORT || 3001;
+const app = express();
 
-    { type: "imput",
-      message: "what is the name of your department?",
-      Choices: ["Sales, engineering, Finance, legal"]
-    },
+// Express middleware
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+// Connect to database
+const db = mysql.createConnection(
+  {
+    host: 'localhost',
+    // MySQL username,
+    user: 'root',
+    // MySQL password
+    password: '',
+    database: 'Employee Management System_db',
+  },
+  console.log(`Connected to the Employee Management System_db database.`)
+);
+
+// Query database
+db.query('SELECT * FROM department', function (err, results) {
+  console.log(results);
+});
+
+// Default response for any other request (Not Found)
+app.use((req, res) => {
+  res.status(404).end();
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
+
   
-{   type: "imput",
-    message: "what role would you like to review?",
-    choices: ["Sales_consultant, Sale_technician, Head of Finance, Finance officer, Accountant, Solicitors, Engineer"],
-},
-
-
-{     type: "input",
-      message: "what is the name of your employee",
-      choices: ["Mike Smith, Carol Smyth, Jacqie Allen, Sarah Smile, Tom Harvard, Lucy Birmingham, Rudy Mann, Natalie Spam"],
-    
-},
-
-  
-
-
-
-
-
-
-  ])
-  .then((answers) => {
-    // Use user feedback for... whatever!!
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
-    }
-  });
